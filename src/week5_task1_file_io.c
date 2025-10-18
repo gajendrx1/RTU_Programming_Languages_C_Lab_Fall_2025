@@ -1,7 +1,8 @@
 // week5_task1_file_io.c
 // Task 1: Read and write data from text files
 // Week 5 – Files & Modular Programming
-// TODO: Fill in the missing parts marked below.
+// Author: [Your Name], [Your Student ID]
+// Description: Demonstrates basic file writing and reading using fprintf() and fgets().
 
 #include <stdio.h>
 #include <stdlib.h>
@@ -11,17 +12,40 @@ int main(void) {
     char filename[100] = "data.txt";
     char line[256];
 
-    // TODO: 1. Open file for writing (mode = "w")
-    // TODO: 2. Check if file opened successfully
-    // TODO: 3. Write 2–3 lines of text to the file using fprintf()
-    // TODO: 4. Close the file
+    // --- Writing to file ---
+    printf("Writing lines to %s...\n", filename);
 
-    // TODO: 5. Open file again for reading (mode = "r")
-    // TODO: 6. Use fgets() in a loop to read and print each line to the console
-    // TODO: 7. Close the file
+    fp = fopen(filename, "w"); // 1. Open file for writing
+    if (fp == NULL) {          // 2. Check if file opened successfully
+        perror("Error opening file for writing");
+        return 1;
+    }
 
-    // BONUS: ask user for filename instead of using default "data.txt"
-    // BONUS: count number of lines read
+    // 3. Write lines of text
+    fprintf(fp, "Hello, file I/O in C!\n");
+    fprintf(fp, "This is another line.\n");
+    fprintf(fp, "File handling is fun!\n");
+
+    fclose(fp); // 4. Close the file
+
+    // --- Reading from file ---
+    printf("Reading contents:\n");
+
+    fp = fopen(filename, "r"); // 5. Open file again for reading
+    if (fp == NULL) {
+        perror("Error opening file for reading");
+        return 1;
+    }
+
+    int line_count = 0;
+    // 6. Read and print each line using fgets()
+    while (fgets(line, sizeof(line), fp) != NULL) {
+        printf("%s", line);
+        line_count++;
+    }
+
+    fclose(fp); // 7. Close the file
+    printf("\nTotal lines read: %d\n", line_count);
 
     return 0;
 }
